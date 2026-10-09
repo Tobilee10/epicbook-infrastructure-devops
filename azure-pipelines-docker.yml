@@ -112,7 +112,7 @@ stages:
                 sed -i "s|image: epicbook-frontend:1.0|image: $(dockerHubUsername)/epicbook-frontend:$(imageTag)|" docker-compose.yml &&
                 docker pull $(dockerHubUsername)/epicbook-backend:$(imageTag) &&
                 docker pull $(dockerHubUsername)/epicbook-frontend:$(imageTag) &&
-                docker compose up -d --remove-orphans &&
+                docker compose up -d --wait --remove-orphans &&
                 docker compose ps
               '
             displayName: 'Pull new images and restart the stack (safe rollout)'

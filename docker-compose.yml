@@ -18,7 +18,7 @@ services:
 
   frontend:
     build: ./frontend
-    image: epicbook-frontend:1.0
+    image: rubi88/epicbook-frontend:main-a4b21467e3431c1f27c10eef9b3f0fb4809d9bb6
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost:80"]
       interval: 10s
@@ -32,7 +32,7 @@ services:
 
   backend:
     build: ./backend
-    image: epicbook-backend:1.0
+    image: rubi88/epicbook-backend:main-a4b21467e3431c1f27c10eef9b3f0fb4809d9bb6
     environment:
       NODE_ENV: production
       PORT: "8080"
@@ -42,7 +42,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 10s
+      start_period: 40s
 
     depends_on:
       database:
