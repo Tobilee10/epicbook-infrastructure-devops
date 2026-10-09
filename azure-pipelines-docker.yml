@@ -108,6 +108,14 @@ stages:
               set -e
               ssh -o StrictHostKeyChecking=no -i "$(sshKeyPath)" ubuntu@$(vmPublicIp) '
                 cd ~/theepicbook &&
+                
+                cat <<'EOF' > .env
+                DB_USER=$(dbUserSecret)
+                DB_PASSWORD=$(dbPasswordSecret)
+                DB_NAME=epicbook
+                DB_ROOT_PASSWORD=$(dbRootPasswordSecret)
+                EOF
+
                 sed -i "s|image: epicbook-backend:1.0|image: $(dockerHubUsername)/epicbook-backend:$(imageTag)|" docker-compose.yml &&
                 sed -i "s|image: epicbook-frontend:1.0|image: $(dockerHubUsername)/epicbook-frontend:$(imageTag)|" docker-compose.yml &&
                 docker pull $(dockerHubUsername)/epicbook-backend:$(imageTag) &&
